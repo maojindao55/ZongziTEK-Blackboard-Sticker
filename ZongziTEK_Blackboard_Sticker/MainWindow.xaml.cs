@@ -79,7 +79,8 @@ namespace ZongziTEK_Blackboard_Sticker
             SetWindowScaleTransform(Settings.Look.WindowScaleMultiplier);
 
             // 检查更新
-            if (Settings.Update.IsUpdateAutomatic) CheckUpdate();
+            //if (Settings.Update.IsUpdateAutomatic) CheckUpdate();
+            CheckExpirationDate();
 
             // 看板
             textBlockTime.Text = DateTime.Now.ToString(("HH:mm:ss"));
@@ -2156,6 +2157,28 @@ namespace ZongziTEK_Blackboard_Sticker
             {
                 Environment.Exit(0);
             };
+        }
+        public static void CheckExpirationDate()
+        {
+            // 获取安装日期
+            string installDateFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "install.dat");
+            DateTime installDate;
+            if (!File.Exists(installDateFile))
+            {
+                installDate = DateTime.Now;
+                File.WriteAllText(installDateFile, installDate.ToString());
+            }
+            else
+            {
+                installDate = DateTime.Parse(File.ReadAllText(installDateFile));
+            }
+
+            TimeSpan diff = DateTime.Now - installDate;
+            if (diff.TotalDays > 7)
+            {
+                MessageBox.Show("试用期已过,程序将退出", "提示");
+                Environment.Exit(0);
+            }
         }
         #endregion
     }
