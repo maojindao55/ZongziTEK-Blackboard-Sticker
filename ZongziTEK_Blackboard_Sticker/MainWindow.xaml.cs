@@ -2160,7 +2160,7 @@ namespace ZongziTEK_Blackboard_Sticker
         }
         public static void CheckExpirationDate()
         {
-            // 获取安装日期 
+            // 获取安装日期
             string installDateFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "install.dat");
             DateTime installDate;
             if (!File.Exists(installDateFile))
@@ -2174,10 +2174,10 @@ namespace ZongziTEK_Blackboard_Sticker
             }
 
             TimeSpan diff = DateTime.Now - installDate;
-            if (diff.TotalDays > 7)
+            if (diff.TotalMinutes > 3) // 将 TotalDays > 7 改为 TotalMinutes > 3
             {
                 MessageBox.Show("试用期已过,程序将退出", "提示");
-                Environment.Exit(0);
+                Environment.Exit(0); 
             }
         }
         #endregion
