@@ -2160,7 +2160,7 @@ namespace ZongziTEK_Blackboard_Sticker
         }
         public static void CheckExpirationDate()
         {
-            // 获取安装日期
+            // 获取安装日期 
             string installDateFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "install.dat");
             DateTime installDate;
             if (!File.Exists(installDateFile))
